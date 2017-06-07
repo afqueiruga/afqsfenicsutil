@@ -1,10 +1,25 @@
-def write_vtk_f(fname, mesh, nodefunctions=None,cellfunctions=None):
-    # S = FunctionSpace(mesh,'P',1)
-    # V = FunctionSpace(mesh,'P',1)
+def write_vtk_f(fname, mesh=None, nodefunctions=None,cellfunctions=None):
+    """
+    Write a whole bunch of FEniCS functions to the same vtk file.
+    """
+    if mesh==None:
+        mesh = nodefunctions.itervalues()[0].function_space().mesh()
+    #N = FunctionSpace(mesh,"CG",1)
+    C = { 0:FunctionSpace(mesh,"DG",0),
+          2:VectorFunctionSpace(mesh,"DG",0),
+          3:TensorFunctionSpace(mesh,"DG",0) }
+    #dmC = C.dofmap()
+
+    nodefields = [(k,f.compute_vertex_values().reshape(-1,mesh.num_vertices()).T)
+                   for k,f in nodefunctions.iteritems()]
+    edgefields=[(k,project(f,C[f.value_rank()]).vector().array().reshape(mesh.num_cells(),-1) )
+                for k,f in cellfunctions.iteritems() ]
+    
     write_vtk(fname, mesh.cells(), mesh.coordinates(),
-                  [(k,f.compute_vertex_values().reshape(-1,mesh.num_vertices()).T) for k,f in nodefunctions.iteritems()]
-                  )
+              nodefields,edgefields )
+    
 def write_vtk(fname, elems, X, nodefields=None,edgefields=None):
+    """ This is an adapted version of write_graph from cornflakes """
     celltypekey = {
         1:1, # Pt
         2:3, # Line
