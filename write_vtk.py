@@ -1,4 +1,4 @@
-from dolfin import FunctionSpace,VectorFunctionSpace,TensorFunctionSpace,project
+from dolfin import FunctionSpace,VectorFunctionSpace,TensorFunctionSpace,project,cells
 
 def write_vtk_f(fname, mesh=None, nodefunctions=None,cellfunctions=None):
     """
@@ -9,11 +9,10 @@ def write_vtk_f(fname, mesh=None, nodefunctions=None,cellfunctions=None):
             mesh = nodefunctions.itervalues().next().function_space().mesh()
         else:
             mesh = cellfunctions.itervalues().next().function_space().mesh()
-    #N = FunctionSpace(mesh,"CG",1)
+    
     C = { 0:FunctionSpace(mesh,"DG",0),
           1:VectorFunctionSpace(mesh,"DG",0),
           2:TensorFunctionSpace(mesh,"DG",0) }
-    #dmC = C.dofmap()
 
     nodefields = [(k,f.compute_vertex_values().reshape(-1,mesh.num_vertices()).T)
                    for k,f in nodefunctions.iteritems()] if nodefunctions else None
@@ -91,7 +90,6 @@ def write_vtk(fname, elems, X, nodefields=None,edgefields=None):
 
 
 
-
 if __name__=="__main__":
     from dolfin import UnitSquareMesh, Function, FunctionSpace, VectorFunctionSpace, TensorFunctionSpace, Expression
 
@@ -99,12 +97,15 @@ if __name__=="__main__":
     S=FunctionSpace(mesh,"DG",0)
     V=VectorFunctionSpace(mesh,"DG",0)
     T=TensorFunctionSpace(mesh,"DG",0)
+    Tsym = TensorFunctionSpace(mesh,"DG",0,symmetry=True)
 
     s = Function(S)
     s.interpolate(Expression('x[0]',element=S.ufl_element()))
     v = Function(V)
     v.interpolate(Expression(('x[0]','x[1]'),element=V.ufl_element()))
     t = Function(T)
-    t.interpolate(Expression(( ('x[0]','1.0'),('2.0','x[2]')),element=T.ufl_element()))
+    t.interpolate(Expression(( ('x[0]','1.0'),('2.0','x[1]')),element=T.ufl_element()))
+    ts = Function(Tsym)
+    ts.interpolate(Expression(( ('x[0]','1.0'),('x[1]',)),element=Tsym.ufl_element()))
     
-    write_vtk_f("test.vtk",cellfunctions={'s':s,'v':v,'t':t})
+    write_vtk_f("test.vtk",cellfunctions={'s':s,'v':v,'t':t,'tsym':ts})
