@@ -29,7 +29,6 @@ def do_tri_map(fix_ind,nodes,nodes_orig):
         # nodes_new[ptid,:] = (nodes[tri,:].T.dot(b)).T
         for i in range(gdim):
             nodes_new[ptid,i] = points[tri,i].dot(b)
-    # from IPython import embed ; embed()
     return nodes_new
 
 def morph_fenics(mesh, nodes, u, other_fix = []):
@@ -40,7 +39,7 @@ def morph_fenics(mesh, nodes, u, other_fix = []):
     """
     X_orig = mesh.coordinates().copy()
     X_defo = X_orig.copy()
-    uN = u.compute_vertex_values().reshape(len(u),len(nodes)).T
+    uN = u.compute_vertex_values().reshape(u.geometric_dimension(),len(nodes)).T
     X_defo[list(nodes),:] += uN
     # Warp the mesh
     X_new = do_tri_map( list(nodes) + list(other_fix), X_defo, X_orig)
