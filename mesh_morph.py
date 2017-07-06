@@ -44,9 +44,8 @@ def morph_fenics(mesh, nodes, u, other_fix = []):
     X_defo[list(nodes),:] += uN
     # Warp the mesh
     X_new = do_tri_map( list(nodes) + list(other_fix), X_defo, X_orig)
-    # from IPython import embed ; embed()
     mesh.coordinates()[:] = X_new
-    # from IPython import embed ; embed()
+    # Calculate w
     from fenics import VectorFunctionSpace, Function
     V = VectorFunctionSpace(mesh,"CG",1)
     DeltaX = Function(V)
