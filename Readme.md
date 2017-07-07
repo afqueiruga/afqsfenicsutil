@@ -7,3 +7,4 @@ Style guide
 -----------
 
 Following Python practices, please use four spaces per indent level. Tabs should appear NOWHERE in the source. (I'm talking to you, Emek!)
+Emek loves TABS!
