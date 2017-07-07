@@ -3,6 +3,8 @@ These are utilities for interfacing FEniCS with Scipy.
 This is how I look at sparsities or interface with LIS (see pylis by afq).
 """
 
+from fenics import PETScMatrix, assemble
+
 def assemble_as_scipy(form):
     K = PETScMatrix()
     assemble(form, tensor=K)
