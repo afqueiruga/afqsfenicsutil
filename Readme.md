@@ -23,6 +23,6 @@ Emek loves TABS!
 
 Copyright (C) Alejandro Francisco Queiruga and B. Emek Abali, 2017-2018
 
- is released under version 3 of the GNU Lesser General Public License, as per LICENSE.txt.
+This library is released under version 3 of the GNU Lesser General Public License, as per LICENSE.txt.
 
 Please mention this repository if you use this library.
