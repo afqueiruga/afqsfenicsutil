@@ -1,4 +1,24 @@
-afq_fenicsutil
-==============
+# afq_fenicsutil
 
-A little collections of utilities for FEniCS. Portions taken from cornflakes, an unreleased runtime by afq, and various codes by B.E. Abali. 
+Alejandro Franisco Queiruga  
+B. Emek Abali  
+2017-2018
+
+## Intro 
+
+A little collections of utilities for FEniCS. Portions of it are taken from
+various codes by afq and  B.E. Abali. We use it for many different
+applications. Most notably, the algorithm in
+[mesh_morph.py](mesh_morph.py) is a crucial component to an upcoming
+paper:
+
+> TODO Cite the paper here
+
+
+## License
+
+Copyright (C) Alejandro Francisco Queiruga and B. Emek Abali, 2017-2018
+
+ is released under version 3 of the GNU Lesser General Public License, as per LICENSE.txt.
+
+Please mention this repository if you use this library.
