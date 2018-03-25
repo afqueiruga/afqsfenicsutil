@@ -1,4 +1,4 @@
-# afq_fenicsutil
+# afqsfenicsutil
 
 Alejandro Franisco Queiruga  
 B. Emek Abali  
@@ -12,7 +12,7 @@ applications. Most notably, the algorithm in
 [mesh_morph.py](mesh_morph.py) is a crucial component to an upcoming
 paper:
 
-> TODO Cite the paper here
+> Theory and computation of electromagnetic fields and thermomechanical structure interaction for systems undergoing large deformations
 
 ## Style guide
 
