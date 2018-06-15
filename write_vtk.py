@@ -45,12 +45,13 @@ def write_vtk(fname, elems, X, nodefields=None,edgefields=None):
     tenfmt = tenformatdict[X.shape[1]]
     import os, errno
     path=os.path.dirname(fname)
-    try:
-        os.makedirs(path)
-    except OSError as exc: # Python >2.5
-        if exc.errno == errno.EEXIST and os.path.isdir(path):
-            pass
-        else: raise
+    if path:
+        try:
+            os.makedirs(path)
+        except OSError as exc: # Python >2.5
+            if exc.errno == errno.EEXIST and os.path.isdir(path):
+                pass
+            else: raise
     fh = open(fname,"w")
     fh.write("# vtk DataFile Version 2.0\nGraph connectivity\nASCII\n")
     fh.write("DATASET UNSTRUCTURED_GRID\n")
