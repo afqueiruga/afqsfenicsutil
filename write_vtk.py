@@ -16,7 +16,7 @@ def write_vtk_f(fname, mesh=None, nodefunctions=None,cellfunctions=None):
 
     nodefields = [(k,f.compute_vertex_values().reshape(-1,mesh.num_vertices()).T)
                    for k,f in nodefunctions.iteritems()] if nodefunctions else None
-    edgefields=[(k,project(f,C[f.value_rank()]).vector().array().reshape(mesh.num_cells(),-1) )
+    edgefields=[(k,project(f,C[f.value_rank()]).vector().get_local().reshape(mesh.num_cells(),-1) )
                 for k,f in cellfunctions.iteritems() ] if cellfunctions else None
     
     write_vtk(fname, mesh.cells(), mesh.coordinates(),
