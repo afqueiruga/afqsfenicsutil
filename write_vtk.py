@@ -1,3 +1,4 @@
+from six import iteritems
 from dolfin import FunctionSpace,VectorFunctionSpace,TensorFunctionSpace,project,cells
 
 def write_vtk_f(fname, mesh=None, nodefunctions=None,cellfunctions=None):
@@ -15,9 +16,9 @@ def write_vtk_f(fname, mesh=None, nodefunctions=None,cellfunctions=None):
           2:TensorFunctionSpace(mesh,"DG",0) }
 
     nodefields = [(k,f.compute_vertex_values().reshape(-1,mesh.num_vertices()).T)
-                   for k,f in nodefunctions.iteritems()] if nodefunctions else None
+                   for k,f in iteritems(nodefunctions)] if nodefunctions else None
     edgefields=[(k,project(f,C[f.value_rank()]).vector().get_local().reshape(mesh.num_cells(),-1) )
-                for k,f in cellfunctions.iteritems() ] if cellfunctions else None
+                for k,f in iteritems(cellfunctions) ] if cellfunctions else None
     
     write_vtk(fname, mesh.cells(), mesh.coordinates(),
               nodefields,edgefields )
