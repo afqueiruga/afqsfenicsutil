@@ -51,7 +51,7 @@ def morph_fenics(mesh, nodes, u, other_fix = []):
     nodeorder = V.dofmap().dofs(mesh,0)
     utot = (X_new - X_orig).ravel()
     for i,l in enumerate(nodeorder):
-		DeltaX.vector()[l] = utot[i]
+        DeltaX.vector()[l] = utot[i]
 
 	
     return DeltaX # w = DeltaX / Dt
