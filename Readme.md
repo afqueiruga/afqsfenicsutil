@@ -14,6 +14,8 @@ paper:
 
 > Theory and computation of electromagnetic fields and thermomechanical structure interaction for systems undergoing large deformations
 
+which is available a [https://arxiv.org/abs/1803.10551](https://arxiv.org/abs/1803.10551). The repository implementing that theory is [https://github.com/afqueiruga/EMSI-2018](https://github.com/afqueiruga/EMSI-2018).
+
 ## Style guide
 
 Following Python practices, please use four spaces per indent level. Tabs should appear NOWHERE in the source. (I'm talking to you, Emek!)
